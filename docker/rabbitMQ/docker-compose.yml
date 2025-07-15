@@ -1,0 +1,16 @@
+services:
+  rabbitmq-aba:
+    image: rabbitmq:3.13-management # Using management tag for easier monitoring
+    hostname: rabbitmq
+    ports:
+      - "5672:5672" # AMQP port
+      - "15672:15672" # Management UI
+      - "61613:61613" # STOMP port
+      - "15674:15674" # Web STOMP port (for browser-based clients if needed)
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - ./rabbitmq-enabled-plugins:/etc/rabbitmq/enabled_plugins:ro
+    # Optional: uncomment if you want to explicitly enable plugins via CLI (less common with enabled_plugins file)
+    # command: rabbitmq-plugins enable --all
